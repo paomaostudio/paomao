@@ -34,6 +34,12 @@ if platform == "darwin":
     ffmpeg='./ffmpeg'
 
     ffprobe='./ffprobe'
+
+    print(Fore.YELLOW + '抛锚工具箱2.0 beta\n' )
+    input_file=input("您现在使用的是手动导入模式，可以把文件拖拽进本窗口并按回车键(如果路径左右两边有引号，请手动去掉引号):\n") 
+    print('即将转码的文件是：'+path.split(input_file)[1]+'\n')#路径和文件名分开，取文件名
+    classical_mode=False
+    time.sleep(0.1)
     
 elif platform == "win32":
     
