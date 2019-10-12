@@ -26,7 +26,14 @@ os.chdir(WorkingDirectory)
 
 platform=sys.platform
 if platform == "darwin":
+
     print('当前系统是MacOS')
+
+    handbrake="./HandBrakeCLI"   #handbrake路径
+
+    ffmpeg='./ffmpeg'
+
+    ffprobe='./ffprobe'
     
 elif platform == "win32":
     
@@ -57,6 +64,8 @@ elif platform == "win32":
     ffmpeg='ffmpeg.exe'
 
     ffprobe='ffprobe.exe'
+else:
+    print('\n\n\n\n\n\n不支持当前系统\n\n\n\n\n\n')
 
 file_split=path.splitext(input_file)    #文件名和后缀分割开
 
