@@ -148,13 +148,21 @@ elif preset == wechat:
     videobitrate=20*8/duration*1024-32
     
     #print(videobitrate)
+    if 0 < videobitrate <= 10:
+        videobitrate=20*8/duration*1024-10
+        ab=10
+        if videobitrate < 1:
 
-    if videobitrate<64:
-        print(Fore.RED+'!!!!视频时长过长，无法转换成微信版，建议求助飘渺酱!!!!'+Fore.RESET)
-        input('请按回车键退出')
-        exit(0)
+            print("视频时长过长，无法转换，我崩溃了")
+            input()
+            exit(0)
+        else:
+            pass
 
-    if duration>600:
+    if 10<videobitrate<64:
+        print(Fore.RED+'!!!!视频时长过长，画质可能会惨不忍睹!!!!'+Fore.RESET)
+        pass
+    if duration>1000:
         wechat_choices = ["我不管，我就要！", "害怕！那算了~"]
         warning = ui.ask_choice(
             "温馨提示:\n---------------------------------------------------------------------------------------\n视频时长超过10分钟！\
@@ -166,7 +174,7 @@ elif preset == wechat:
         else:
             
             exit(0)
-    encode_arg=" -e x264 --encoder-tune psnr --encoder-preset slow -X 960 --encoder-level 4.0 -2 -T --ab 32 -R 44.1 --vb "+str(videobitrate)
+    encode_arg=" -e x264 --encoder-tune psnr --encoder-preset slow -X 960 --encoder-level 4.0 -2 -T --ab %s -R 44.1 --vb "%(ab)+str(videobitrate)
     output_file=file_split[0]+"_wechat"+".mp4"
     show_prompt('微信视频')
     paomao(encode_arg)
