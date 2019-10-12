@@ -1,4 +1,6 @@
 # encoding:utf-8
+import os
+import sys
 from sys import argv
 from os import path,system
 import time
@@ -17,42 +19,44 @@ tprint('PAOMAO',font='slant')
 
 #print(argv[0])          #argv[0] 类似于shell中的$0,但不是脚本名称，而是脚本的路径   
 #rint(argv[1])          #argv[1] 表示传入的第一个参数，既 hell
-platform=sys.platform
-if platform="darwin":
-    print('当前系统是MacOS')
-elif platform="win32":
-    print("")
-
-if len(argv) > 2:
-    print(Fore.CYAN+'抛锚工具箱2.0 beta 经典模式\n')
-    classical_mode=True
-    input_file=argv[1]
-    print('即将转码的文件是：'+path.split(input_file)[1])
-
-elif len(argv) < 2:
-    print(Fore.YELLOW + '抛锚工具箱2.0 beta\n' )
-    input_file=input("您现在使用的是手动导入模式，可以把文件拖拽进本窗口并按回车键(如果路径左右两边有引号，请手动去掉引号):\n") 
-    print('即将转码的文件是：'+path.split(input_file)[1]+'\n')#路径和文件名分开，取文件名
-    classical_mode=False
-    time.sleep(0.1)
-
-else:
-    print(Fore.YELLOW + '抛锚工具箱2.0 beta\n' )
-    input_file=argv[1]
-    print('即将转码的文件是：'+path.split(input_file)[1]+'\n')
-    classical_mode=False
-    time.sleep(0.1)
-
 
 WorkingDirectory= (path.dirname(path.realpath(argv[0]))) #当前脚本工作路径
 
 os.chdir(WorkingDirectory)
 
-handbrake="HandBrakeCLI"   #handbrake路径
+platform=sys.platform
+if platform == "darwin":
+    print('当前系统是MacOS')
+    
+elif platform == "win32":
+    
+    print("当前系统是Windows")
 
-ffmpeg='ffmpeg'
+    if len(argv) > 2:
+        print(Fore.CYAN+'抛锚工具箱2.0 beta 经典模式\n')
+        classical_mode=True
+        input_file=argv[1]
+        print('即将转码的文件是：'+path.split(input_file)[1])
 
-ffprobe='ffprobe'
+    elif len(argv) < 2:
+        print(Fore.YELLOW + '抛锚工具箱2.0 beta\n' )
+        input_file=input("您现在使用的是手动导入模式，可以把文件拖拽进本窗口并按回车键(如果路径左右两边有引号，请手动去掉引号):\n") 
+        print('即将转码的文件是：'+path.split(input_file)[1]+'\n')#路径和文件名分开，取文件名
+        classical_mode=False
+        time.sleep(0.1)
+
+    else:
+        print(Fore.YELLOW + '抛锚工具箱2.0 beta\n' )
+        input_file=argv[1]
+        print('即将转码的文件是：'+path.split(input_file)[1]+'\n')
+        classical_mode=False
+        time.sleep(0.1)
+
+    handbrake="HandBrakeCLI.exe"   #handbrake路径
+
+    ffmpeg='ffmpeg.exe'
+
+    ffprobe='ffprobe.exe'
 
 file_split=path.splitext(input_file)    #文件名和后缀分割开
 
