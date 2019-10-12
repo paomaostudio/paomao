@@ -23,32 +23,33 @@ if len(argv) > 2:
     classical_mode=True
     input_file=argv[1]
     print('即将转码的文件是：'+path.split(input_file)[1])
+
 elif len(argv) < 2:
     print(Fore.YELLOW + '抛锚工具箱2.0 beta\n' )
     input_file=input("您现在使用的是手动导入模式，可以把文件拖拽进本窗口并按回车键(如果路径左右两边有引号，请手动去掉引号):\n") 
     print('即将转码的文件是：'+path.split(input_file)[1]+'\n')#路径和文件名分开，取文件名
     classical_mode=False
-    time.sleep(1)
+    time.sleep(0.1)
+
 else:
     print(Fore.YELLOW + '抛锚工具箱2.0 beta\n' )
-    #print(argv[1])
     input_file=argv[1]
     print('即将转码的文件是：'+path.split(input_file)[1]+'\n')
     classical_mode=False
-    time.sleep(1)
-
+    time.sleep(0.1)
 
 
 c_path= (path.dirname(path.realpath(argv[0]))) #当前脚本工作路径
 
-hb=(c_path+"\handbrakecli.exe")#handbrake路径
-hb=("\"%s\"" %hb)
+os.chdir(c_path)
 
-ffmpeg='"'+c_path+'\\ffmpeg.exe\"'
+handbrake="handbrakecli.exe"   #handbrake路径
 
-ffprobe_path='"'+c_path+'\\ffprobe.exe"'
+ffmpeg='ffmpeg.exe'
 
-file_split=path.splitext(input_file)#文件名和后缀分割开
+ffprobe='ffprobe.exe'
+
+file_split=path.splitext(input_file)    #文件名和后缀分割开
 
 def show_prompt(preset_name):
     prompt='\n当前转码预设：'+Fore.YELLOW+preset_name+Fore.RESET+' \n即将开始转码~\n'
@@ -56,7 +57,7 @@ def show_prompt(preset_name):
 
 def getLength(input_video):
     #print(input_video)
-    cmd = '%s -i \"%s\" -show_entries format=duration -v quiet -of csv="p=0"' %(ffprobe_path,input_video)
+    cmd = '%s -i \"%s\" -show_entries format=duration -v quiet -of csv="p=0"' %(ffprobe,input_video)
     output =os.popen(cmd,'r')
     output = output.read()
     return output
@@ -68,19 +69,29 @@ encode_arg=" -e x264 --encoder-tune psnr --encoder-preset slow -X 1920 --encoder
 prompt='当前转码参数：Bilibili 6000K Slow\n即将开始转码~'
 
 def paomao(encode_arg):
-    cmd = (hb+" -i \"%s\" -o \"%s\"%s"%(input_file,output_file,encode_arg))
-    #print(prompt)
+
+    cmd = (handbrake+" -i \"%s\" -o \"%s\"%s"%(input_file,output_file,encode_arg))
+    
     print(cmd)
-    time.sleep(1)
+
+    time.sleep(0.1)
+
     call(cmd,shell=True)
     
 slow='标准版(在合理的转码速度下获得不错的画质，推荐大多数情况下使用)'
+
 slower='高画质版(比标准版更慢的转码速度，更好的画质，推荐时间充裕的时候使用)'
+
 game='高速版(比标准版更高的转码速度，合理的画质)'
+
 wechat='微信版(把视频暴力压缩到25m以下，视频时长越长，画质越差)'
+
 demo="DEMO版(高速，画质一般，文件小，适合压成demo给客户看)"
+
 user="自定义预设(高级功能，如果懂得如何使用命令行版handbrake就自己设置吧！)"
+
 audio="音频提取(把音轨提取出来转成320k的mp3)"
+
 if classical_mode:
     preset=slow
 else:
@@ -96,6 +107,7 @@ elif preset == slower:
     encode_arg=" -e x264 --encoder-tune psnr --encoder-preset slower -X 1920 --encoder-level 4.0 -2 -T -R 44.1 --vb 5800"
     show_prompt('高画质版')
     paomao(encode_arg)
+
 elif preset == wechat:
     try:
         duration=float(getLength(input_file))
@@ -106,15 +118,17 @@ elif preset == wechat:
     else:
         pass
 
-    #clip = VideoFileClip(input_file)
-    #duration=float(getLength(input_file))
+
     print( '视频时长为'+str(duration)+'秒' )
     videobitrate=20*8/duration*1024-32
+    
     #print(videobitrate)
+
     if videobitrate<64:
         print(Fore.RED+'!!!!视频时长过长，无法转换成微信版，建议求助飘渺酱!!!!'+Fore.RESET)
         input('请按回车键退出')
         exit(0)
+
     if duration>600:
         wechat_choices = ["我不管，我就要！", "害怕！那算了~"]
         warning = ui.ask_choice(
@@ -160,11 +174,13 @@ else:
     print ('如果你看到这条消息 说明程序出错了 可以考虑联系飘渺酱')
     exit(0)
     pass
+
 if os.path.exists(output_file):
     music=pygame.mixer.Sound(c_path+'\\Congrats.wav')
     music.play()
     input(Fore.GREEN+"\n\n转完啦!!！")
     exit(0)
+    
 else:
     music=pygame.mixer.Sound(c_path+'\\error.wav')
     music.play()
