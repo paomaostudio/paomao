@@ -146,7 +146,7 @@ elif preset == wechat:
 
     print( '视频时长为'+str(duration)+'秒' )
     videobitrate=20*8/duration*1024-32
-    
+    ab=32
     #print(videobitrate)
     if 0 < videobitrate <= 10:
         videobitrate=20*8/duration*1024-10
