@@ -17,6 +17,7 @@ tprint('PAOMAO',font='slant')
 
 #print(argv[0])          #argv[0] 类似于shell中的$0,但不是脚本名称，而是脚本的路径   
 #rint(argv[1])          #argv[1] 表示传入的第一个参数，既 hell
+print(sys.platform)
 
 if len(argv) > 2:
     print(Fore.CYAN+'抛锚工具箱2.0 beta 经典模式\n')
@@ -39,15 +40,15 @@ else:
     time.sleep(0.1)
 
 
-c_path= (path.dirname(path.realpath(argv[0]))) #当前脚本工作路径
+WorkingDirectory= (path.dirname(path.realpath(argv[0]))) #当前脚本工作路径
 
-os.chdir(c_path)
+os.chdir(WorkingDirectory)
 
-handbrake="handbrakecli.exe"   #handbrake路径
+handbrake="HandBrakeCLI"   #handbrake路径
 
-ffmpeg='ffmpeg.exe'
+ffmpeg='ffmpeg'
 
-ffprobe='ffprobe.exe'
+ffprobe='ffprobe'
 
 file_split=path.splitext(input_file)    #文件名和后缀分割开
 
@@ -176,13 +177,13 @@ else:
     pass
 
 if os.path.exists(output_file):
-    music=pygame.mixer.Sound(c_path+'\\Congrats.wav')
+    music=pygame.mixer.Sound('Congrats.wav')
     music.play()
     input(Fore.GREEN+"\n\n转完啦!!！")
     exit(0)
     
 else:
-    music=pygame.mixer.Sound(c_path+'\\error.wav')
+    music=pygame.mixer.Sound('error.wav')
     music.play()
     print(Fore.RED+'\n\n出事儿啦！\n检测不到视频文件，是不是出问题了？可以考虑联系飘渺酱!')
     input()
