@@ -174,7 +174,7 @@ elif preset == wechat:
         else:
             
             exit(0)
-    encode_arg=" -e x264 --encoder-tune psnr --encoder-preset slow -X 960 --encoder-level 4.0 -2 -T --ab %s -R 44.1 --vb "%(ab)+str(videobitrate)
+    encode_arg=" -e x264 --encoder-tune psnr --encoder-preset slow -X 640 --encoder-level 4.0 -2 -T --ab %s -R 44.1 --vb "%(ab)+str(videobitrate)
     output_file=file_split[0]+"_wechat"+".mp4"
     show_prompt('微信视频')
     paomao(encode_arg)
