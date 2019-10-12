@@ -136,8 +136,9 @@ elif preset == wechat:
     try:
         duration=float(getLength(input_file))
     except:
-        print(Fore.RED+'出事啦,无法计算视频长度，请手动输入视频长度\n')
-        duration＝input()
+        print(Fore.RED+'出事啦,无法计算视频长度，请手动输入视频长度，\n默认单位为秒，请直接输入数字\n'+Fore.RESET)
+
+        duration = input()
 
     else:
         pass
