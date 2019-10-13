@@ -19,7 +19,7 @@ tprint('PAOMAO',font='slant')
 
 #print(argv[0])          #argv[0] 类似于shell中的$0,但不是脚本名称，而是脚本的路径   
 #rint(argv[1])          #argv[1] 表示传入的第一个参数，既 hell
-
+version="抛锚工具箱 2.1 beta"
 WorkingDirectory= (path.dirname(path.realpath(argv[0]))) #当前脚本工作路径
 
 os.chdir(WorkingDirectory)
@@ -27,7 +27,7 @@ os.chdir(WorkingDirectory)
 platform=sys.platform
 if platform == "darwin":
 
-    print('当前系统是MacOS')
+    print('当前系统是MacOS\n')
 
     handbrake="./HandBrakeCLI"   #handbrake路径
 
@@ -35,7 +35,7 @@ if platform == "darwin":
 
     ffprobe='./ffprobe'
 
-    print(Fore.YELLOW + '抛锚工具箱2.0 beta\n' )
+    print(Fore.YELLOW + '%s\n'%(version) )
     input_file=input("您现在使用的是手动导入模式，可以把文件拖拽进本窗口并按回车键:\n") .strip()
     print('即将转码的文件是：'+path.split(input_file)[1]+'\n')#路径和文件名分开，取文件名
     classical_mode=False
@@ -43,23 +43,23 @@ if platform == "darwin":
     
 elif platform == "win32":
     
-    print("当前系统是Windows")
+    print("当前系统是Windows\n")
 
     if len(argv) > 2:
-        print(Fore.CYAN+'抛锚工具箱2.0 beta 经典模式\n')
+        print(Fore.CYAN+'%s 经典模式\n'%(version))
         classical_mode=True
         input_file=argv[1]
         print('即将转码的文件是：'+path.split(input_file)[1])
 
     elif len(argv) < 2:
-        print(Fore.YELLOW + '抛锚工具箱2.0 beta\n' )
+        print(Fore.YELLOW + '%s\n'%(version) )
         input_file=input("您现在使用的是手动导入模式，可以把文件拖拽进本窗口并按回车键(如果路径左右两边有引号，请手动去掉引号):\n") 
         print('即将转码的文件是：'+path.split(input_file)[1]+'\n')#路径和文件名分开，取文件名
         classical_mode=False
         time.sleep(0.1)
 
     else:
-        print(Fore.YELLOW + '抛锚工具箱2.0 beta\n' )
+        print(Fore.YELLOW + '%s\n'%(version) )
         input_file=argv[1]
         print('即将转码的文件是：'+path.split(input_file)[1]+'\n')
         classical_mode=False
