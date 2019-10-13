@@ -102,19 +102,19 @@ def paomao(encode_arg):
 
     call(cmd,shell=True)
     
-slow='标准版(在合理的转码速度下获得不错的画质，推荐大多数情况下使用)'
+slow='标准版   (在合理的转码速度下获得不错的画质，符合bilibili不二压标准，推荐大多数情况下使用)'
 
-slower='超清版(比标准版更慢的转码速度，更好的画质，推荐时间充裕的时候使用)'
+slower='超清版   (比标准版更慢的转码速度，更好的画质，推荐时间充裕的时候使用)'
 
-game='高速版(比标准版更高的转码速度，合理的画质)'
+game='高速版   (比标准版更高的转码速度，合理的画质)'
 
-wechat='微信版(把视频暴力压缩到25m以下，视频时长越长，画质越差)'
+wechat='微信版   (把视频暴力压缩到25m以下，视频时长越长，画质越差)'
 
-demo="演示版(高速，画质一般，文件小，适合给客户看的DEMO)"
+demo="演示版   (高速，画质一般，文件小，适合给客户看的DEMO)"
 
-user="自定义(高级功能，如果懂得如何使用命令行版handbrake就自己设置吧！)"
+user="自定义   (高级功能，如果懂得如何使用命令行版handbrake就自己设置吧！)"
 
-audio="音频提取(把音轨提取出来转成320k的mp3)"
+audio="音频提取 (把音轨提取出来转成320k的mp3)"
 
 if classical_mode:
     preset=slow
@@ -129,7 +129,7 @@ if preset == slow:
 elif preset == slower:
     
     encode_arg=" -e x264 --encoder-tune psnr --encoder-preset slower -X 1920 --encoder-level 4.0 -2 -T -R 44.1 --vb 5800"
-    show_prompt('高画质版')
+    show_prompt('超清版')
     paomao(encode_arg)
 
 elif preset == wechat:
@@ -176,7 +176,7 @@ elif preset == wechat:
             exit(0)
     encode_arg=" -e x264 --encoder-tune psnr --encoder-preset slow -X 640 --encoder-level 4.0 -2 -T --ab %s -R 44.1 --vb "%(ab)+str(videobitrate)
     output_file=file_split[0]+"_wechat"+".mp4"
-    show_prompt('微信视频')
+    show_prompt('微信版')
     paomao(encode_arg)
 
 elif preset == game:
