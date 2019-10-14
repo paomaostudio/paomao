@@ -19,7 +19,7 @@ tprint('PAOMAO',font='slant')
 
 #print(argv[0])          #argv[0] 类似于shell中的$0,但不是脚本名称，而是脚本的路径   
 #rint(argv[1])          #argv[1] 表示传入的第一个参数，既 hell
-version="抛锚工具箱 2.1 beta"
+version="抛锚工具箱 2.2 beta"
 WorkingDirectory= (path.dirname(path.realpath(argv[0]))) #当前脚本工作路径
 
 os.chdir(WorkingDirectory)
