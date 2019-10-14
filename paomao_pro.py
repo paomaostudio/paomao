@@ -89,7 +89,7 @@ def getLength(input_video):
 
 output_file=file_split[0]+"_pm"+".mp4"
 
-encode_arg=" -e x264 --encoder-tune psnr --encoder-preset slow -X 1920 --encoder-level 4.0 -2 -T -R 44.1 --vb 5800"
+encode_arg=" -e x264 --encoder-tune psnr --crop 0:0:0:0 --encoder-preset slow -X 1920 --encoder-level 4.0 -2 -T -R 44.1 --vb 5800"
 prompt='当前转码参数：Bilibili 6000K Slow\n即将开始转码~'
 
 def paomao(encode_arg):
@@ -102,19 +102,19 @@ def paomao(encode_arg):
 
     call(cmd,shell=True)
     
-slow='标准版   (在合理的转码速度下获得不错的画质，符合bilibili不二压标准，推荐大多数情况下使用)'
+slow='标准模式   (在合理的转码速度下获得不错的画质，符合bilibili不二压标准，推荐大多数情况下使用)'
 
-slower='超清版   (比标准版更慢的转码速度，更好的画质，推荐时间充裕的时候使用)'
+slower='超清模式   (比标准版更慢的转码速度，更好的画质，推荐时间充裕的时候使用)'
 
-game='高速版   (比标准版更高的转码速度，合理的画质)'
+game='高速模式   (比标准版更高的转码速度，合理的画质)'
 
-wechat='微信版   (把视频暴力压缩到25m以下，视频时长越长，画质越差)'
+wechat='微信模式   (把视频暴力压缩到25m以下，视频时长越长，画质越差)'
 
-demo="演示版   (高速，画质一般，文件小，适合给客户看的DEMO)"
+demo="演示模式   (高速，画质一般，文件小，适合给客户看的DEMO)"
 
-user="自定义   (高级功能，如果懂得如何使用命令行版handbrake就自己设置吧！)"
+user="专家模式   (高级功能，如果懂得如何使用命令行版handbrake就自己设置吧！)"
 
-audio="音频提取 (把音轨提取出来转成320k的mp3)"
+audio="音频提取   (把音轨提取出来转成320k的mp3)"
 
 if classical_mode:
     preset=slow
@@ -128,7 +128,7 @@ if preset == slow:
     pass
 elif preset == slower:
     
-    encode_arg=" -e x264 --encoder-tune psnr --encoder-preset slower -X 1920 --encoder-level 4.0 -2 -T -R 44.1 --vb 5800"
+    encode_arg=" -e x264 --encoder-tune psnr --crop 0:0:0:0 --encoder-preset slower -X 1920 --encoder-level 4.0 -2 -T -R 44.1 --vb 5800"
     show_prompt('超清版')
     paomao(encode_arg)
 
@@ -162,6 +162,9 @@ elif preset == wechat:
     if 10<videobitrate<64:
         print(Fore.RED+'!!!!视频时长过长，画质可能会惨不忍睹!!!!'+Fore.RESET)
         pass
+    if videobitrate>2000:
+        videobitrate=2000
+        pass
     if duration>1000:
         wechat_choices = ["我不管，我就要！", "害怕！那算了~"]
         warning = ui.ask_choice(
@@ -174,18 +177,18 @@ elif preset == wechat:
         else:
             
             exit(0)
-    encode_arg=" -e x264 --encoder-tune psnr --encoder-preset slow -X 640 --encoder-level 4.0 -2 -T --ab %s -R 44.1 --vb "%(ab)+str(videobitrate)
+    encode_arg=" -e x264 --encoder-tune psnr --crop 0:0:0:0 --encoder-preset slow -X 640 --encoder-level 4.0 -2 -T --ab %s -R 44.1 --vb "%(ab)+str(videobitrate)
     output_file=file_split[0]+"_wechat"+".mp4"
     show_prompt('微信版')
     paomao(encode_arg)
 
 elif preset == game:
-    encode_arg=" -e x264 --encoder-tune psnr --encoder-preset medium -X 1920 --encoder-level 4.0 -2 -T -R 44.1 --vb 5800"
+    encode_arg=" -e x264 --encoder-tune psnr --crop 0:0:0:0 --encoder-preset medium -X 1920 --encoder-level 4.0 -2 -T -R 44.1 --vb 5800"
     show_prompt('高速版')
     paomao(encode_arg)
 
 elif preset == demo:
-    encode_arg=" -e x264 --encoder-tune psnr --encoder-preset medium -X 960 --encoder-level 4.0 -R 44.1 --ab 32 --vb 1500"
+    encode_arg=" -e x264 --encoder-tune psnr --crop 0:0:0:0 --encoder-preset medium -X 960 --encoder-level 4.0 -R 44.1 --ab 32 --vb 1500"
     show_prompt('DEMO')
     paomao(encode_arg)
 
@@ -196,10 +199,10 @@ elif preset == audio:
     call(cmd,shell=True)
 
 elif preset == user:
-    #encode_arg=" -e x264 --encoder-tune psnr --encoder-preset medium -X 960 --encoder-level 4.0 -R 44.1 --ab 32 --vb 1500"
+    #encode_arg=" -e x264 --encoder-tune psnr --crop 0:0:0:0 --encoder-preset medium -X 960 --encoder-level 4.0 -R 44.1 --ab 32 --vb 1500"
     print('默认参数是:',Fore.CYAN+encode_arg+Fore.RESET+'\n')
     print('您可以复制并修改上面的参数，或查询官方文档',Fore.CYAN+r'https://handbrake.fr/docs/en/1.2.0/cli/command-line-reference.html'+Fore.RESET,'\n')
-    input('请输入参数(第一个参数前需要加空格)：\n')
+    encode_arg = input('请输入参数(第一个参数前需要加空格)：\n')
     show_prompt('用户自定义')
     paomao(encode_arg)
 
