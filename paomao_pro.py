@@ -37,6 +37,7 @@ if platform == "darwin":
 
     print(Fore.YELLOW + '%s\n'%(version) )
     input_file=input("您现在使用的是手动导入模式，可以把文件拖拽进本窗口并按回车键:\n") .strip()
+    input_file=('\"%s\"' %input_file)
     print('即将转码的文件是：'+path.split(input_file)[1]+'\n')#路径和文件名分开，取文件名
     classical_mode=False
     time.sleep(0.1)
