@@ -12,31 +12,12 @@ import colorama
 from colorama import Fore, Back, Style
 from subprocess import call,Popen
 
-def os_check():
-        platform=sys.platform
-        if platform == "darwin":
 
-            print('当前系统是MacOS\n')
-            OS="macos"
-
-            handbrake="./HandBrakeCLI"   #handbrake路径
-
-            ffmpeg='./ffmpeg'
-
-            ffprobe='./ffprobe'
-
-            print(Fore.YELLOW + '%s\n'%(version) )
             
             #input_file=input("您现在使用的是手动导入模式，可以把文件拖拽进本窗口并按回车键:\n") .strip()
             #input_file=input_file.replace("\\","")
             #print('即将转码的文件是：'+path.split(input_file)[1]+'\n')#路径和文件名分开，取文件名
-            classical_mode=False
-            time.sleep(0.1)
             
-        elif platform == "win32":
-            
-            print("当前系统是Windows\n")
-            OS="windows"
 
             # if len(argv) > 2:
             #     print(Fore.CYAN+'%s 经典模式\n'%(version))
@@ -58,13 +39,7 @@ def os_check():
             #     classical_mode=False
             #     time.sleep(0.1)
 
-            handbrake="HandBrakeCLI.exe"   #handbrake路径
-
-            ffmpeg='ffmpeg.exe'
-
-            ffprobe='ffprobe.exe'
-        else:
-            print('\n\n\n\n\n\n不支持当前系统\n\n\n\n\n\n')
+            
 
 def main():
         
@@ -75,10 +50,6 @@ def main():
 
     #print(argv[0])          #argv[0] 类似于shell中的$0,但不是脚本名称，而是脚本的路径   
     #rint(argv[1])          #argv[1] 表示传入的第一个参数，既 hell
-    
-
-    
-    
 
     file_split=path.splitext(input_file)    #文件名和后缀分割开
 
