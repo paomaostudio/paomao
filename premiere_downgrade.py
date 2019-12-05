@@ -42,7 +42,7 @@ def get_src_version(projectFile):
         if project.get('Version'):
             return project.get('Version')
 
-def get_src_file():
+def get_src_file(): #初始化变量
     global src_filename
     global projectFile
     src_filename = FilePath
@@ -54,7 +54,7 @@ def get_src_file():
 def convert():
     
     if version and projectFile:
-        write_output_file(convert_data(projectFile, version), ok_message)
+        write_output_file(convert_data(projectFile, version))
     else:
         print("出事啦！")
 
