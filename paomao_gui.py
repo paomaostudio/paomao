@@ -50,12 +50,13 @@ os_check()
 print(OS,handbrake,ffmpeg,ffprobe)
 
 @Gooey(
-optional_cols=2,
+#optional_cols=2,
 language='chinese',
-advanced=True,
-program_name=version,       # Defaults to script name
-program_description="抛锚",       # Defaults to ArgParse Description
-default_size=(800, 700),
+#advanced=False,
+auto_start=True,
+#program_name=version,       # Defaults to script name
+#program_description="抛锚",       # Defaults to ArgParse Description
+#default_size=(800, 700),
 )
 def main():
     
