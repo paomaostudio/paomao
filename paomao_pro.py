@@ -38,8 +38,31 @@ from subprocess import call,Popen
             #     print('即将转码的文件是：'+path.split(input_file)[1]+'\n')
             #     classical_mode=False
             #     time.sleep(0.1)
+slow=('标准模式',
+'(在合理的转码速度下获得不错的画质，符合bilibili不二压标准，推荐大多数情况下使用)',
+" -e x264 --encoder-tune psnr --crop 0:0:0:0 --encoder-preset slow -X 1920 --encoder-level 4.0 -2 -T -R 44.1 --vb 5800")
 
-            
+
+
+slower=('超清模式',
+'(比标准版更慢的转码速度，更好的画质，推荐时间充裕的时候使用)',
+" -e x264 --encoder-tune psnr --crop 0:0:0:0 --encoder-preset slower -X 1920 --encoder-level 4.0 -2 -T -R 44.1 --vb 5800")
+
+
+game='高速模式   (比标准版更高的转码速度，合理的画质)'
+
+
+wechat='微信模式   (把视频暴力压缩到25m以下，视频时长越长，画质越差)'
+
+
+demo="演示模式   (高速，画质一般，文件小，适合给客户看的DEMO)"
+
+
+user="专家模式   (高级功能，如果懂得如何使用命令行版handbrake就自己设置吧！)"
+
+
+audio="音频提取   (把音轨提取出来转成320k的mp3)"
+    
 
 def main():
         
@@ -80,19 +103,7 @@ def main():
 
         call(cmd,shell=True)
         
-    slow='标准模式   (在合理的转码速度下获得不错的画质，符合bilibili不二压标准，推荐大多数情况下使用)'
 
-    slower='超清模式   (比标准版更慢的转码速度，更好的画质，推荐时间充裕的时候使用)'
-
-    game='高速模式   (比标准版更高的转码速度，合理的画质)'
-
-    wechat='微信模式   (把视频暴力压缩到25m以下，视频时长越长，画质越差)'
-
-    demo="演示模式   (高速，画质一般，文件小，适合给客户看的DEMO)"
-
-    user="专家模式   (高级功能，如果懂得如何使用命令行版handbrake就自己设置吧！)"
-
-    audio="音频提取   (把音轨提取出来转成320k的mp3)"
 
     if classical_mode:
         preset=slow
@@ -106,7 +117,7 @@ def main():
         pass
     elif preset == slower:
         
-        encode_arg=" -e x264 --encoder-tune psnr --crop 0:0:0:0 --encoder-preset slower -X 1920 --encoder-level 4.0 -2 -T -R 44.1 --vb 5800"
+        encode_arg=
         show_prompt('超清版')
         paomao(encode_arg)
 
