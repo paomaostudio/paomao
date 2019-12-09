@@ -63,6 +63,7 @@ game=('高速模式',
 
 wechat=('微信模式',   
 '(把视频暴力压缩到25m以下，视频时长越长，画质越差)',
+wechat_check(input_file)
 )
 
 
