@@ -1,7 +1,8 @@
 from gooey import Gooey,GooeyParser
-#import paomao_pro as pm
+import paomao_pro as pm
 import os
 import sys
+import time
 
 
 #from argparse import ArgumentParser
@@ -10,44 +11,46 @@ version="抛锚工具箱 2.2.2"
 WorkingDirectory= (os.path.dirname(os.path.realpath(sys.argv[0]))) #当前脚本工作路径
 print (WorkingDirectory)
 os.chdir(WorkingDirectory)#切换工作目录到脚本文件夹
-input_file="K:\Render\小初-sweet devil_pm.mp4"
-def os_check():
-        global OS
-        global handbrake
-        global ffmpeg
-        global ffprobe
-        platform=sys.platform
-        if platform == "darwin":
+input_file="D:\\Render2\\C0006(12)_pm.mp4"
 
-            print('当前系统是MacOS\n')
-            
-            OS="macos"
 
-            handbrake="./HandBrakeCLI"   #handbrake路径
+OS,handbrake,ffmpeg,ffprobe=pm.os_check()
+slow=('标准模式',
+'(在合理的转码速度下获得不错的画质，符合bilibili不二压标准，推荐大多数情况下使用)',
+" -e x264 --encoder-tune psnr --crop 0:0:0:0 --encoder-preset slow -X 1920 --encoder-level 4.0 -2 -T -R 44.1 --vb 5800")
 
-            ffmpeg='./ffmpeg'
 
-            ffprobe='./ffprobe'
 
-            print(Fore.YELLOW + '%s\n'%(version) )
-            classical_mode=False
-            time.sleep(0.1)
-            
-        elif platform == "win32":
-            
-            print("当前系统是Windows\n")
-            
-            OS="windows"
-            handbrake="HandBrakeCLI.exe"   #handbrake路径
+slower=('超清模式',
+'(比标准版更慢的转码速度，更好的画质，推荐时间充裕的时候使用)',
+" -e x264 --encoder-tune psnr --crop 0:0:0:0 --encoder-preset slower -X 1920 --encoder-level 4.0 -2 -T -R 44.1 --vb 5800")
 
-            ffmpeg='ffmpeg.exe'
 
-            ffprobe='ffprobe.exe'
-        else:
-            print('\n\n\n\n\n\n不支持当前系统\n\n\n\n\n\n')
+normal=('高速模式',
+   '(比标准版更高的转码速度，合理的画质)',
+   " -e x264 --encoder-tune psnr --crop 0:0:0:0 --encoder-preset normal -X 1920 --encoder-level 4.0 -2 -T -R 44.1 --vb 5800")
+   
 
-os_check()
+wechat=('微信模式',   
+'(把视频暴力压缩到25m以下，视频时长越长，画质越差)',
+pm.wechat_check(input_file,ffprobe),
+)
+
+
+demo=('演示模式',
+   '(高速，画质一般，文件小，适合给客户看的DEMO)',
+   ' -e x264 --encoder-tune psnr --crop 0:0:0:0 --encoder-preset medium -X 960 --encoder-level 4.0 -R 44.1 --ab 32 --vb 1500'
+)
+
+
+user=('专家模式' ,  '(高级功能，如果懂得如何使用命令行版handbrake就自己设置吧！)'
+)
+
+audio=('音频提取'   '(把音轨提取出来转成320k的mp3)'
+)
 print(OS,handbrake,ffmpeg,ffprobe)
+pm.wechat_check(input_file,ffprobe)
+print(wechat[2])
 
 @Gooey(
 #optional_cols=2,

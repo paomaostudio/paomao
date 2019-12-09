@@ -12,77 +12,43 @@ import colorama
 from colorama import Fore, Back, Style
 from subprocess import call,Popen
 
-
+def os_check():
+        platform=sys.platform
+        if platform == "darwin":
+            print('当前系统是MacOS\n')
+            OS="macos"
+            handbrake="./HandBrakeCLI"   #handbrake路径
+            ffmpeg='./ffmpeg'
+            ffprobe='./ffprobe'
+            print(Fore.YELLOW + '%s\n'%(version) )
+            #classical_mode=False
+            time.sleep(0.1)
             
-            #input_file=input("您现在使用的是手动导入模式，可以把文件拖拽进本窗口并按回车键:\n") .strip()
-            #input_file=input_file.replace("\\","")
-            #print('即将转码的文件是：'+path.split(input_file)[1]+'\n')#路径和文件名分开，取文件名
+        elif platform == "win32":           
+            print("当前系统是Windows\n")           
+            OS="windows"
+            handbrake="HandBrakeCLI.exe"   #handbrake路径
+            ffmpeg='ffmpeg.exe'
+            ffprobe='ffprobe.exe'
+        else:
+            print('\n\n\n\n\n\n不支持当前系统\n\n\n\n\n\n')
+        return OS,handbrake,ffmpeg,ffprobe
             
 
-            # if len(argv) > 2:
-            #     print(Fore.CYAN+'%s 经典模式\n'%(version))
-            #     classical_mode=True
-            #     input_file=argv[1]
-            #     print('即将转码的文件是：'+path.split(input_file)[1])
+def wechat_check(input_file,ffprobe):
 
-            # elif len(argv) < 2:
-            #     print(Fore.YELLOW + '%s\n'%(version) )
-            #     input_file=input("您现在使用的是手动导入模式，可以把文件拖拽进本窗口并按回车键(如果路径左右两边有引号，请手动去掉引号):\n") 
-            #     print('即将转码的文件是：'+path.split(input_file)[1]+'\n')#路径和文件名分开，取文件名
-            #     classical_mode=False
-            #     time.sleep(0.1)
+    def getLength(input_video,ffprobe):
 
-            # else:
-            #     print(Fore.YELLOW + '%s\n'%(version) )
-            #     input_file=argv[1]
-            #     print('即将转码的文件是：'+path.split(input_file)[1]+'\n')
-            #     classical_mode=False
-            #     time.sleep(0.1)
-def getLength(input_video):
-    #print(input_video)
-    cmd = '%s -i \"%s\" -show_entries format=duration -v quiet -of csv="p=0"' %(ffprobe,input_video)
-    output =os.popen(cmd,'r')
-    output = output.read()
-    return output
+        #print(input_video)
+        cmd = '%s -i \"%s\" -show_entries format=duration -v quiet -of csv="p=0"' %(ffprobe,input_video)
+        output =os.popen(cmd,'r')
+        output = output.read()
+        return output
 
-slow=('标准模式',
-'(在合理的转码速度下获得不错的画质，符合bilibili不二压标准，推荐大多数情况下使用)',
-" -e x264 --encoder-tune psnr --crop 0:0:0:0 --encoder-preset slow -X 1920 --encoder-level 4.0 -2 -T -R 44.1 --vb 5800")
-
-
-
-slower=('超清模式',
-'(比标准版更慢的转码速度，更好的画质，推荐时间充裕的时候使用)',
-" -e x264 --encoder-tune psnr --crop 0:0:0:0 --encoder-preset slower -X 1920 --encoder-level 4.0 -2 -T -R 44.1 --vb 5800")
-
-
-game=('高速模式',
-   '(比标准版更高的转码速度，合理的画质)',
-   " -e x264 --encoder-tune psnr --crop 0:0:0:0 --encoder-preset normal -X 1920 --encoder-level 4.0 -2 -T -R 44.1 --vb 5800")
-   
-
-wechat=('微信模式',   
-'(把视频暴力压缩到25m以下，视频时长越长，画质越差)',
-wechat_check(input_file)
-)
-
-
-demo=('演示模式',
-   '(高速，画质一般，文件小，适合给客户看的DEMO)',
-   ' -e x264 --encoder-tune psnr --crop 0:0:0:0 --encoder-preset medium -X 960 --encoder-level 4.0 -R 44.1 --ab 32 --vb 1500'
-)
-
-
-user=('专家模式' ,  '(高级功能，如果懂得如何使用命令行版handbrake就自己设置吧！)'
-)
-
-audio=('音频提取'   '(把音轨提取出来转成320k的mp3)'
-)
-
-def wechat_check(input_file):
     print (input_file)
+    
     try:
-            duration=float(getLength(input_file))
+            duration=float(getLength(input_file,ffprobe))
     except:
             print(Fore.RED+'出事啦,无法计算视频长度，请手动输入视频长度，\n默认单位为秒，请直接输入数字\n'+Fore.RESET)
             duration = input()
@@ -112,7 +78,11 @@ def wechat_check(input_file):
         
     if duration>1000:
         print ("警告：视频时长较长，画质可能会惨不忍睹")
-    return (" -e x264 --encoder-tune psnr --crop 0:0:0:0 --encoder-preset slow -X 640 --encoder-level 4.0 -2 -T --ab %s -R 44.1 --vb "%(ab)+str(videobitrate))       
+    return (" -e x264 --encoder-tune psnr --crop 0:0:0:0 --encoder-preset slow -X 640 --encoder-level 4.0 -2 -T --ab %s -R 44.1 --vb "%(ab)+str(videobitrate))   
+#返回微信版的参数
+
+
+    
             
 def main():
         
