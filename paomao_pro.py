@@ -84,7 +84,7 @@ def wechat_check(input_file,ffprobe):
 
     
             
-def main():
+def main(input_file,handbrake):
         
     pygame.mixer.init()
     colorama.init(autoreset=True) 
@@ -92,18 +92,14 @@ def main():
     #argv[1] 表示传入的第一个参数
 
     file_split=path.splitext(input_file)    #文件名和后缀分割开
-
+    output_file=file_split[0]+"_pm"+".mp4" #加上paomao
+    
     def show_prompt(preset_name):
         prompt='\n当前转码预设：'+Fore.YELLOW+preset_name+Fore.RESET+' \n即将开始转码~\n'
         print(prompt)
-
     
 
-
-    output_file=file_split[0]+"_pm"+".mp4"
-
-    encode_arg=" -e x264 --encoder-tune psnr --crop 0:0:0:0 --encoder-preset slow -X 1920 --encoder-level 4.0 -2 -T -R 44.1 --vb 5800"
-    prompt='当前转码参数：Bilibili 6000K Slow\n即将开始转码~'
+    #encode_arg=" -e x264 --encoder-tune psnr --crop 0:0:0:0 --encoder-preset slow -X 1920 --encoder-level 4.0 -2 -T -R 44.1 --vb 5800"
 
     def paomao(encode_arg):
 
@@ -116,7 +112,7 @@ def main():
         call(cmd,shell=True)
         
 
-
+'''
     if classical_mode:
         preset=slow
     else:
@@ -168,8 +164,8 @@ def main():
         print ('如果你看到这条消息 说明程序出错了 可以考虑联系飘渺酱')
         exit(0)
         pass
-
-
+'''
+'''
     if os.path.exists(output_file):
         music=pygame.mixer.Sound('Congrats.wav')
         music.play()
@@ -181,3 +177,4 @@ def main():
         music.play()
         print(Fore.RED+'\n\n出事儿啦！\n检测不到视频文件，是不是出问题了？可以考虑联系飘渺酱!')
         input()
+'''

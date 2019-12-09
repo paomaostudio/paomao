@@ -3,7 +3,26 @@ import paomao_pro as pm
 import os
 import sys
 import time
+import argparse
 
+parser = argparse.ArgumentParser()
+parser.description='这是程序简介'
+parser.add_argument("-n","--normal", help="标准模式",action="store_true")
+parser.add_argument("-s","--slow", help="超清模式")
+parser.add_argument("-f","--fast", help="高速模式")
+parser.add_argument("file", help="默认输入文件，不带参数")
+args=parser.parse_args()
+normal=args.normal
+if args.input:
+    input_file=args.input
+else:
+    input_file=args.file
+print(input_file)
+
+if args.normal:
+    print (normal)
+else:
+    print("rua")
 
 #from argparse import ArgumentParser
 #初始化
@@ -11,7 +30,8 @@ version="抛锚工具箱 2.2.2"
 WorkingDirectory= (os.path.dirname(os.path.realpath(sys.argv[0]))) #当前脚本工作路径
 print (WorkingDirectory)
 os.chdir(WorkingDirectory)#切换工作目录到脚本文件夹
-input_file="D:\\Render2\\C0006(12)_pm.mp4"
+#input_file="D:\\Render2\\C0006(12)_pm.mp4"
+input_file="k:\\render\\小初-sweet devil_pm.mp4"
 
 
 OS,handbrake,ffmpeg,ffprobe=pm.os_check()
@@ -49,8 +69,8 @@ user=('专家模式' ,  '(高级功能，如果懂得如何使用命令行版han
 audio=('音频提取'   '(把音轨提取出来转成320k的mp3)'
 )
 print(OS,handbrake,ffmpeg,ffprobe)
-pm.wechat_check(input_file,ffprobe)
-print(wechat[2])
+#pm.wechat_check(input_file,ffprobe)
+#print(wechat[2])
 
 @Gooey(
 #optional_cols=2,
