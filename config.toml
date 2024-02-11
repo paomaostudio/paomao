@@ -1,0 +1,73 @@
+[config]
+default = "hd"
+vip = 0
+vip_name = "6aOY5ri66YWx"
+debug = 0
+help_url = "https://t.me/+KVXlR6666YWx"
+
+[hd]
+name = "高清模式"
+info = "1080P 6000K码率，文件大小适中，画质优秀，推荐大多数情况下使用"
+arg = " -e x264 --encoder-tune psnr --crop 0:0:0:0 --encoder-preset slow -X 1920 --encoder-level 4.0 --multi-pass -T -R 44.1 --vb 6000"
+summary = "1080P 画质优秀"
+
+[4k]
+name = "超清模式"
+info = "4K 25000K码率，文件大小适中，画质优秀，推荐大多数情况下使用"
+arg = " -e x264 --encoder-tune psnr --crop 0:0:0:0 --encoder-preset slow -X 3840 --encoder-level 4.0 --multi-pass -T -R 44.1 --vb 25000"
+summary = "4K 画质优秀"
+
+[mp3]
+name = "音频提取"
+info = "将原视频的音轨提取并转码为MP3格式，320K码率"
+arg = " -f mp3 -vn -b:a 320k "
+summary = "转码为320K MP3"
+
+[demo]
+name = "演示模式"
+info = "约720P 900K码率，文件较小，画质良好，转码速度极快，推荐需要快速简单演示的场合使用。"
+arg = " -e x264 --encoder-tune psnr --crop 0:0:0:0 --encoder-preset slow -X 1280 --non-anamorphic --encoder-level 4.0 -T -R 44.1 --vb 900"
+summary = "720P 转码超快"
+
+[tiny]
+name = "超小模式"
+info = "约360P 500K码率，文件非常小，画质尚可，推荐在传输速度较差时候给别人预览使用。"
+arg = " -e x264 --encoder-tune psnr --crop 0:0:0:0 --encoder-preset slow -X 640 --encoder-level 4.0 --multi-pass -T --ab 64 -R 44.1 --vb 500"
+summary = "360P 画质尚可"
+
+[user1]
+# 这是用户自定义的预设名称，您可以根据自己的需求进行修改
+name = "自定义1"  
+# 这是自定义预设的详细描述，将在转码前显示
+info = "用户自定义参数1"  
+# https://handbrake.fr/docs/en/1.2.0/cli/command-line-reference.html
+# 抛锚工具箱的视频转换核心使用了HandbrakeCLI，您可以参考HandbrakeCLI的文档来修改这里的参数。
+arg = " -e x264 --encoder-tune psnr --crop 0:0:0:0 --encoder-preset slow -X 1920 --encoder-level 4.0 --multi-pass -T -R 44.1 --vb 6000"
+# 这是自定义预设简单描述，将在预设选择界面展示
+summary = "用户自定义参数"
+
+[user2]
+name = "自定义2"
+info = "用户自定义参数2"
+arg = " -e x264 --encoder-tune psnr --crop 0:0:0:0 --encoder-preset slow -X 1920 --encoder-level 4.0 --multi-pass -T -R 44.1 --vb 6000"
+summary = "用户自定义参数"
+
+[user3]
+name = "自定义3"
+info = "用户自定义参数3"
+arg = " -e x264 --encoder-tune psnr --crop 0:0:0:0 --encoder-preset slow -X 1920 --encoder-level 4.0 --multi-pass -T -R 44.1 --vb 6000"
+summary = "用户自定义参数"
+
+[rimage]
+name = "图片压缩"
+info = "将图片进行压缩，可以保持画质接近不变的情况下大幅缩减图片文件体积。"
+arg = "rimage"
+summary = "图片大幅压缩"
+quality = 75
+
+[rimage2]
+name = "图片缩放"
+info = "将图片进行等比例缩放并压缩，根据用户提供的宽度，自动计算图片大小并压缩转换。"
+arg = "rimage2"
+summary = "图片等比例缩放"
+quality = 75
