@@ -3,7 +3,13 @@ default = "hd"
 vip = 0
 vip_name = "6aOY5ri66YWx"
 debug = 0
-help_url = "https://t.me/+KVXlR6666YWx"
+help_url = "http//toolkit.paomao.tech"
+
+[handbrake]
+ext = "_pm.mp4"
+
+[ffmpeg]
+
 
 [hd]
 name = "高清模式"
@@ -35,16 +41,11 @@ info = "约360P 500K码率，文件非常小，画质尚可，推荐在传输速
 arg = " -e x264 --encoder-tune psnr --crop 0:0:0:0 --encoder-preset slow -X 640 --encoder-level 4.0 --multi-pass -T --ab 64 -R 44.1 --vb 500"
 summary = "360P 画质尚可"
 
-[user1]
-# 这是用户自定义的预设名称，您可以根据自己的需求进行修改
-name = "自定义1"  
-# 这是自定义预设的详细描述，将在转码前显示
-info = "用户自定义参数1"  
-# https://handbrake.fr/docs/en/1.2.0/cli/command-line-reference.html
-# 抛锚工具箱的视频转换核心使用了HandbrakeCLI，您可以参考HandbrakeCLI的文档来修改这里的参数。
+[proxy]
+name = "代理模式"  
+info = "横屏720P 2000k码率，自动调用显卡编码，速度极快"  
 arg = " -e x264 --encoder-tune psnr --crop 0:0:0:0 --encoder-preset slow -X 1920 --encoder-level 4.0 --multi-pass -T -R 44.1 --vb 6000"
-# 这是自定义预设简单描述，将在预设选择界面展示
-summary = "用户自定义参数"
+summary = "横屏720P代理"
 
 [user2]
 name = "自定义2"
@@ -71,3 +72,14 @@ info = "将图片进行等比例缩放并压缩，根据用户提供的宽度，
 arg = "rimage2"
 summary = "图片等比例缩放"
 quality = 75
+
+[user4]
+# 这是用户自定义的预设名称，您可以根据自己的需求进行修改
+name = "自定义1"  
+# 这是自定义预设的详细描述，将在转码前显示
+info = "用户自定义参数1"  
+# https://handbrake.fr/docs/en/1.2.0/cli/command-line-reference.html
+# 抛锚工具箱的视频转换核心使用了HandbrakeCLI，您可以参考HandbrakeCLI的文档来修改这里的参数。
+arg = " -e x264 --encoder-tune psnr --crop 0:0:0:0 --encoder-preset slow -X 1920 --encoder-level 4.0 --multi-pass -T -R 44.1 --vb 6000"
+# 这是自定义预设简单描述，将在预设选择界面展示
+summary = "用户自定义参数"

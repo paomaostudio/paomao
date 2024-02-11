@@ -33,8 +33,17 @@ ffmpeg = 'ffmpeg.exe'
 ffprobe = 'ffprobe.exe'
 rimg = Rimage("rimage.exe")
 
-with open('config.toml', 'r', encoding="utf-8") as toml_file:
-    config = toml.load(toml_file)
+class ConfigManager:
+    def __init__(self, config_path):
+        self.config_path = config_path
+        self.config = self.load_config()
+
+    def load_config(self):
+        with open(self.config_path, 'r', encoding="utf-8") as toml_file:
+            return toml.load(toml_file)
+    
+
+config = ConfigManager('config.toml').config
 
 # 创建一个日志记录器
 logging.basicConfig(
@@ -62,7 +71,7 @@ def parse_arguments():
     parser.add_argument('--input', '-i', help='输入文件')
     parser.add_argument('--preset', '-p', help='预设')
     parser.add_argument('--custom-mode', '-m', help='自定义模式')
-
+    parser.add_argument('--help', '-h', help='显示帮助信息')
     args = parser.parse_args()
     return args
 
@@ -104,7 +113,6 @@ def queue_file_handler(file):
 def run_handbrake(cmd, log_file_path, status):
     with open(log_file_path, 'w', encoding='utf-8', errors='ignore') as log_file:
         process = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, universal_newlines=True, encoding='utf-8', errors='ignore')
-        
         # 正则表达式匹配 "Encoding" 开头的行
         pattern = re.compile(r'^Encoding:.*$', re.M)
         pattern2 = re.compile(r'^size.*$', re.M)
@@ -255,7 +263,7 @@ def select_preset(console):
         
 
 if __name__ == "__main__":
-    version = "2.42"
+    version = "2.43beta"
     os.system('mode con: cols=80 lines=35')
     tprint('PAOMAO', font='slant')
     Preset = False
@@ -275,6 +283,7 @@ if __name__ == "__main__":
         file_name, output_file = file_path_converter(input_file,ext)
 
     elif args.preset:
+        # 当命令行参数给到了某个预设的时候，自动执行对应的预设
         input_file = input_arg
         Preset = config[preset_arg]
         encode_arg = Preset['arg']
