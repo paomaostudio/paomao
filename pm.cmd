@@ -1,0 +1,1 @@
+python "E:\paomao\paomao_toolkit.py" -q %*

@@ -126,3 +126,6 @@ dmypy.json
 
 #paomao
 *.exe
+*.bak
+*.mp4
+log.txt
